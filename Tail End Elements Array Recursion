@@ -1,0 +1,44 @@
+#include <stdio.h> //include header files
+#include <cs50.h>
+
+int N = 0;
+int element_count;
+
+void printElements(int n,int array[]);
+
+int main(void)
+{
+    int size;
+    size = get_int("Enter size of array: \n");
+    int array[size];
+    for (int i = 0; i < size; i++)
+    {
+        array[i] = get_int("Element - %i: \n",i);
+    }
+    printf("The elements in the array are: ");
+    printElements(size, array);
+
+
+}
+void printElements(int n, int array[]) //findFib number at n
+{
+//1. what is the function trying to do?
+//print n individual elements of an array
+
+//2. when does the recursion need to end?
+//whenever all of the elements have been printed
+//i.e when n has recursively reached 0 (base case)
+if (n == 0)
+{
+return;
+}
+
+//3. Body, use the logic to get correct
+printf("%i ", array[element_count]);
+element_count++;
+
+
+//4.
+printElements(n-1,array); //loop back to print elements with n-1
+
+}
