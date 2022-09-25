@@ -1,0 +1,43 @@
+#include <stdio.h> //include header files
+#include <cs50.h>
+
+int N = 0;
+int level_counter = 1;
+
+
+void printStairs(int n);
+
+int main(void)
+{
+    N = get_int("Enter height of stairs: \n");
+    printStairs(N); //passing through n factorial
+
+
+}
+void printStairs(int n) //findFib number at n
+{
+//1. what is the function trying to do?
+//print N lines of stairs using previous stair to help
+//i.e * then new line & previous stair + *
+
+//2. when does the recursion need to end?
+//whenever all of the levels have been completed i.e level 0
+if (n == 0)
+{
+return;
+}
+//USING HEAD RECURSION THEREFORE IT LOOPS OVER N TIMES WITHOUT PERFROMING ANYTHING
+//THEN RECURSIVELY PERFORMS BODY FUNCTION
+printStairs(n-1); //loops over n times then performs body n times (n=1=>n=n)
+
+//3. Body, use the logic to get correct output
+
+for(int i = 0; i < n; i++)
+{
+    printf("*");
+}
+printf("\n");
+//level_counter++;
+
+
+}
