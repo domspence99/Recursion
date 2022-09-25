@@ -1,0 +1,37 @@
+#include <stdio.h> //include header files
+#include <cs50.h>
+
+int N = 0;
+int sum = 0;
+
+int sumNum(int n);
+
+int main(void)
+{
+    N = get_int("Enter n factorial: \n");
+    sum = sumNum(N); //passing through n factorial
+    printf("%i",sum);
+
+
+}
+int sumNum(int n) //findFib number at n
+{
+//1. what is the function trying to do?
+//sum the numbers of the function then send return to sumNum
+
+//2. when does the recursion need to end?
+//whenever all of the elements have been summed
+//i.e when n has recursively reached 0 (base case)
+if (n == 0)
+{
+return 0;
+}
+
+//3. Body, use the logic to get correct output
+
+
+
+//4. Recursion
+return n + sumNum(n-1); //loop back to print elements with n-1
+
+}
