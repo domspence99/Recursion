@@ -1,0 +1,35 @@
+#include <stdio.h> //include header files
+#include <cs50.h>
+
+int N = 0;
+int prvNum = 1; //setting 2 previous fib numbers
+int prvprvNum = 1;
+int new_num = 0;
+void findFib(int n);
+int main(void)
+{
+    N = get_int("Enter n: \n");
+    //printf("%i\n",n);
+    printf("1 1 ");
+    findFib(N);
+
+
+}
+void findFib(int n) //findFib number at n
+{
+if (n == 2)
+{
+return;
+}
+new_num = prvNum + prvprvNum; //adding 2 previous numbers to get new number
+printf("%i ",new_num); //printing new number
+
+//setting new previous 2 numbers before recusion
+prvprvNum = prvNum;
+prvNum = new_num;
+
+
+
+findFib(n-1); //loop back to findFib with n-1
+
+}
