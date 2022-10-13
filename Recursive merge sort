@@ -1,0 +1,114 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+void mergeSort(int array[], int left_index, int right_index);
+void merge(int array[], int left_index, int right_index, int mid_index);
+
+
+
+int main(void)
+{
+    int n = get_int("Enter size of array to sort\n");
+    //int array[] = {-1,7,2,0,44,-14,3,45,6,1,6};
+    int array[n];
+    for(int i = 0; i < n; i++ )
+    {
+        array[i] = get_int("Enter number %i: \n", i);
+    }
+
+    mergeSort(array,0,n - 1);
+
+    for (int j = 0; j < n; j++)
+    {
+        printf("Sorted array[%i]: %i\n", j, array[j]);
+    }
+}
+
+void mergeSort(int array[], int left_index, int right_index)
+{
+    //base case
+    //as we are dividing & conquering, the base case will be when we have divided until 1 element each i.e right index < left_index
+    if (right_index <= left_index)
+    {
+        return;
+    }
+
+    int mid_index = (left_index + right_index) / 2; //find midpoint of array
+
+    mergeSort(array, left_index, mid_index); //splits left side until 1 value
+
+    mergeSort(array, mid_index + 1, right_index); //splits right side until 1 value
+
+    merge(array, left_index, right_index, mid_index); //merges & sorts left & right half
+
+    return;
+
+
+}
+
+void merge(int array[], int left_index, int right_index, int mid_index)
+{
+    int temp[right_index -left_index + 1]; //set temp array for sorting
+    int middle_index = mid_index + 1; //placeholder for lhs of rhs array
+    int k = 0; //index for temp array
+    int l_index = left_index; //movable index for left & right & middle
+    int r_index = right_index;
+    int m_index = mid_index + 1;
+
+    //sorting lhs & rhs arrays
+
+    while (l_index <= mid_index && m_index <= right_index) //while both arrays still have values, try sort & merge
+    {
+        if (array[l_index] < array[m_index]) //if left most value of left array is smaller than left most value on right array
+        {
+            temp[k] = array[l_index]; //put value in temp & shift left index across 1
+            l_index ++;
+        }
+        else
+        {
+            temp[k] = array[m_index]; //otherwise put the left most value of the rhs array in & shift index accross on rhs array
+            m_index ++;
+        }
+        k++; //increment temp array index
+    }
+
+    //merging lhs & rhs sorted arrays
+
+    if (l_index >= mid_index) //if left array is empty
+    {
+        while(m_index <= right_index) //add the remaining contents of the rhs array to temp
+        {
+            temp[k] = array[m_index];
+            k++;
+            m_index++;
+        }
+    }
+
+    if (m_index >= right_index) //if right array is empty
+    {
+        while(l_index <= mid_index) //add the remaining contents of the lhs array to temp
+        {
+            temp[k] = array[l_index];
+            k++;
+            l_index++;
+        }
+    }
+
+    //printing merged array values
+
+    //for (int i = 0; i < k; i++) //show values of merged array
+    //{
+    //    printf("Temp %i: %i\n", i, temp[i]);
+    //}
+    //    printf("\n");
+
+    //returning merged & sorted array back to original function
+
+    for (int i = left_index; i <= right_index; i++)
+    {
+        array[i] = temp[i - left_index];
+    }
+    return;
+}
