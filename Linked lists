@@ -13,16 +13,22 @@ node;
 node * addNode(int n);
 void printNode(node *list);
 void freeNodes(node *nodes);
+node * reverseNodes(node *list);
 
 
 int main(void)
 {
     srand(time(0)); //seeding for random n generator
     int n = 6;
-    node *list = NULL; //initialising list first pointer
+    node *list = NULL;
     list = addNode(n);
     printNode(list);
+    printf("\n");
+    node * reversedNodes = NULL;
+    reversedNodes = reverseNodes(list);
+    printNode(reversedNodes);
     freeNodes(list);
+
 }
 
 node * addNode(int n)  //add n number of nodes to linked list with random n
@@ -68,3 +74,22 @@ void freeNodes(node *nodes)
 //2. Initialise empty starting node
 //3. Allocate memory for first node (ensuring error handling and freeing if out of memory)
 //4. Assign number & pointer to next node
+
+node * reverseNodes(node *list)
+{
+    if (list == NULL || list->next == NULL) //if an empty list or a list with one node is passed, it is reversed so return list
+    {
+        return list;
+    }
+
+    node *tmp = reverseNodes(list->next); //tmp returns the following node i.e node 6 address returned to 5
+    list->next->next = list;  //create a reversal
+    list->next = NULL; //remove link to next node
+
+
+    return tmp; //return following node & repeat
+
+
+
+
+}
