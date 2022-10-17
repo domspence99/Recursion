@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <cs50.h>
+#include <time.h>
+
+typedef struct node
+{
+    int number; //a value
+    struct node *next; //a pointer to next node
+}
+node;
+
+node * addNode(int n);
+void printNode(node *list);
+void freeNodes(node *nodes);
+
+
+int main(void)
+{
+    srand(time(0)); //seeding for random n generator
+    int n = 6;
+    node *list = NULL; //initialising list first pointer
+    list = addNode(n);
+    printNode(list);
+    freeNodes(list);
+}
+
+node * addNode(int n)  //add n number of nodes to linked list with random n
+{
+    int r = rand() % 10; //random number 1-10 (testing)
+    node *current_node = malloc(sizeof(node)); //allocate memory for current node
+    //base case when the last node reached (node 1)
+    if(n <= 1)
+    {
+        current_node->next = NULL; //set the next node to 0
+        current_node->number = 3; //final node value of 3 testing
+        return current_node;  //return current node to caller (addNode(n-1))
+
+    }
+
+    node *tmp = addNode(n - 1); //returns address of previous current node
+    current_node->next = tmp;  //set the current next node as the node before it
+    current_node->number = r; //set the number as random 1-10
+
+    return current_node; //return current node to caller addNode(n-1)
+
+}
+
+void printNode(node *list)  //prints all node values
+{
+    for (node *tmp = list; tmp != NULL; tmp=tmp->next)
+    {
+        printf("%i\n", tmp->number);
+    }
+}
+
+void freeNodes(node *nodes)
+{
+    while(nodes != NULL)
+    {
+        node *tmp = nodes->next; //save next node in tmp
+        free(nodes); //free current node
+        nodes = tmp; //set next node as current node
+    }
+}
+
+//1. Define node structure
+//2. Initialise empty starting node
+//3. Allocate memory for first node (ensuring error handling and freeing if out of memory)
+//4. Assign number & pointer to next node
